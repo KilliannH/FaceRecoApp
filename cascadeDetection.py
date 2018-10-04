@@ -7,6 +7,8 @@ eye_cascade = cv2.CascadeClassifier('./DataSources/Haarcascade/haarcascade_eye.x
 
 cap = cv2.VideoCapture(0)
 
+img_counter = 0
+
 
 def make_480p():
     cap.set(3, 640)
@@ -34,8 +36,18 @@ while True:
             cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
 
     cv2.imshow('img', img)
-    if cv2.waitKey(20) & 0xFF == ord('q'):
+    k = cv2.waitKey(1)
+
+    if k % 256 == 27:
+        # ESC pressed
+        print("Escape hit, closing...")
         break
+    elif k % 256 == 32:
+        # SPACE pressed
+        img_name = "opencv_frame_{}.png".format(img_counter)
+        cv2.imwrite(img_name, img)
+        print("{} written!".format(img_name))
+        img_counter += 1
 
 # When everything done, release the capture
 
