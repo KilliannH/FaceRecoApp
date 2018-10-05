@@ -6,7 +6,8 @@ face_cascade = cv2.CascadeClassifier('./DataSources/Haarcascade/haarcascade_fron
 
 cap = cv2.VideoCapture(0)
 
-treshold = Treshold(120, 2, 2)
+treshold = Treshold(350, 450, 280)
+# play with those treshold values
 
 img_counter = 0
 
@@ -40,10 +41,15 @@ while True:
         width = x+w
         height = y+h
 
-        if width > treshold.min_width & width < treshold.max_width & height > treshold.height:
-            print('my condition is satisfied')
-
-            # and the idea is to play with thoes treshold values, to pick same types of face images.
+        if width > treshold.min_width & height > treshold.height:
+            if img_counter < 1:
+                print img_counter
+                img_name = "opencv_frame_{}.png".format(img_counter)
+                cv2.imwrite(img_name, roi_color)
+                print("Hope this one was not blurry ;)")
+                img_counter += 1
+            else:
+                print ('dudu')
 
             cv2.rectangle(img, (x, y), (width, height), color, stroke)
 
@@ -56,12 +62,6 @@ while True:
         # ESC pressed
         print("Escape hit, closing...")
         break
-    elif k % 256 == 32:
-        # SPACE pressed
-        img_name = "opencv_frame_{}.png".format(img_counter)
-        cv2.imwrite(img_name, roi_color)
-        print("{} written!".format(img_name))
-        img_counter += 1
 
 # When everything done, release the capture
 
