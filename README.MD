@@ -13,4 +13,12 @@
 
 NB : openCV is used to identify faces, not recognize them.
 
-The recognize stuff / prediction is made by tensorflow
+The recognize stuff / prediction is made with tensorflow
+
+
+
+After some research : 
+-> Google has already done it : Facenet
+-> setup for tensorFlow : triplet loss function, convolultional neural network
+-> pre-trained data : "Faces in the Wild data set"
+-> crop and sized faces with Dlib
